@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int eleccion = 1;
+        int eleccion = -1;
         Scanner teclado = new Scanner(System.in);
         do {
 
@@ -24,9 +24,13 @@ public class Main {
             System.out.println("----------------------");
             System.out.println("2.-Convertir binario8bits en entero");
 
-            eleccion = teclado.nextInt();
 
             try {
+
+                String entrada = teclado.nextLine();
+                eleccion = Integer.parseInt(entrada);
+
+
                 if (eleccion == 1) {
 
                     int numero = leerNumero();
@@ -61,15 +65,15 @@ public class Main {
 
         public static String obtenerBinario8bits ( int numero){
 
-            String binarioString = "";
+            StringBuilder binarioString = new StringBuilder();
 
             ArrayList<String> binario = intToBinary8bits(numero); //recuperamos el Arraylist del metodo IntToBinary
 
             for (int i = binario.size() - 1; i >= -0; i--) {
 
-                binarioString += binario.get(i); //guardamos los datos almacenados en el Arraylist, pero al reves
+                binarioString.append(binario.get(i)); //guardamos los datos almacenados en el Arraylist, pero al reves
             }
-            return binarioString;
+            return binarioString.toString();
         }
 
 
@@ -119,16 +123,13 @@ public class Main {
 
         static boolean validarBinario8bits (ArrayList < String > binario) {
 
-            for (int i = 0; i < binario.size(); i++) {
+            for (String s : binario) {
 
-                if (Integer.parseInt(binario.get(i)) != 0 && Integer.parseInt(binario.get(i)) != 1) {
+                if (Integer.parseInt(s) != 0 && Integer.parseInt(s) != 1) {
                     return false;
                 }
             }
-                if (binario.size()>8) {
-                    return false;
-                }
-            return true;
+            return binario.size() <= 8;
         }
     //Metodo para ingresar entero
 
@@ -137,9 +138,7 @@ public class Main {
         Scanner teclado = new Scanner(System.in);
         System.out.println("Ingrese el numero entero");
 
-        int entero = teclado.nextInt();
-
-        return entero;
+        return teclado.nextInt();
     }
 
     //Metodo para ingresar binario8bits
